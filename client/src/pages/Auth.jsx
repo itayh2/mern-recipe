@@ -87,19 +87,27 @@ const Form = ({
       <form onSubmit={onSubmit}>
         <h2>{label}</h2>
         <div className="form-group">
-          <label htmlFor="username">Username: </label>
+          <label
+            htmlFor={label === "Login" ? "login-username" : "register-username"}
+          >
+            Username:
+          </label>
           <input
             type="text"
-            id="username"
+            id={label === "Login" ? "login-username" : "register-username"}
             value={username}
             onChange={(event) => setUserName(event.target.value)}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password: </label>
+          <label
+            htmlFor={label === "Login" ? "login-password" : "register-password"}
+          >
+            Password:{" "}
+          </label>
           <input
             type="password"
-            id="password"
+            id={label === "Login" ? "login-password" : "register-password"}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
