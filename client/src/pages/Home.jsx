@@ -45,6 +45,17 @@ export default function Home() {
     }
   };
 
+  const removeRecipe = async (recipeID) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/recipes/savedRecipes/${userID}/${recipeID}`
+      );
+      setSavedRecipes(response.data.savedRecipes);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const isRecipeSaved = (id) => savedRecipes.includes(id);
 
   return (
@@ -56,10 +67,13 @@ export default function Home() {
             <div>
               <h2>{recipe.name}</h2>
               <button
-                onClick={() => saveRecipe(recipe._id)}
-                disabled={isRecipeSaved(recipe._id)}
+                onClick={() =>
+                  isRecipeSaved
+                    ? saveRecipe(recipe._id)
+                    : removeRecipe(recipe._id)
+                }
               >
-                {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
+                {isRecipeSaved(recipe._id) ? "Unsave" : "Save"}
               </button>
             </div>
             <div className="instructions">

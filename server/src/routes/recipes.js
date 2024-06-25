@@ -48,6 +48,20 @@ router.get("/savedRecipes/ids/:userID", async (req, res) => {
   }
 });
 
+router.delete("/savedRecipes/:userID/:recipeID", async (req, res) => {
+  const { userID, recipeID } = req.params;
+  try {
+    const user = await UserModel.findById(userID);
+    user.savedRecipes = user.savedRecipes.filter(
+      (id) => id.toString() !== recipeID
+    );
+    await user.save();
+    res.json({ savedRecipes: user.savedRecipes });
+  } catch (err) {
+    res.json(err);
+  }
+});
+
 router.get("/savedRecipes/:userID", async (req, res) => {
   try {
     const user = await UserModel.findById(req.params.userID);

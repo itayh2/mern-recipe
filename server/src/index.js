@@ -13,11 +13,7 @@ app.use("/auth", userRouter);
 app.use("/recipes", recipesRouter);
 
 mongoose.connect(
-<<<<<<< Updated upstream
-  "mongodb+srv://itayh2:npoBYPPrEiDKID4m@recipes.jamhxgc.mongodb.net/recipes?retryWrites=true&w=majority"
-=======
   "mongodb+srv://itayh2:itayH123!@recipes.jamhxgc.mongodb.net/recipes?retryWrites=true&w=majority"
->>>>>>> Stashed changes
 );
 
 app.listen(3001, () => {
