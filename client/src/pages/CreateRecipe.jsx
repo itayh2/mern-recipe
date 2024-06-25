@@ -43,47 +43,54 @@ export default function CreateRecipe() {
       console.err(err);
     }
   };
-  return (
-    <div className="create-recipe">
-      <h2>Create Recipe</h2>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="name">Name</label>
-        <input type="text" id="name" name="name" onChange={handleChange} />
-        <label htmlFor="ingredients">Ingredients</label>
-        {recipe.ingredients.map((ingredient, idx) => (
+  let content;
+  if (userID) {
+    content = (
+      <div className="create-recipe">
+        <h2>Create Recipe</h2>
+        <form onSubmit={onSubmit}>
+          <label htmlFor="name">Name</label>
+          <input type="text" id="name" name="name" onChange={handleChange} />
+          <label htmlFor="ingredients">Ingredients</label>
+          {recipe.ingredients.map((ingredient, idx) => (
+            <input
+              key={idx}
+              type="text"
+              name="ingredients"
+              value={ingredient}
+              onChange={(event) => handleIngredientChange(event, idx)}
+            />
+          ))}
+          <button onClick={addIngredient} type="button">
+            Add Ingredient
+          </button>
+          <label htmlFor="instructions">Instructions</label>
+          <textarea
+            name="instructions"
+            id="instructions"
+            onChange={handleChange}
+          ></textarea>
+          <label htmlFor="imageUrl">Image URL</label>
           <input
-            key={idx}
             type="text"
-            name="ingredients"
-            value={ingredient}
-            onChange={(event) => handleIngredientChange(event, idx)}
+            id="imageUrl"
+            name="imageUrl"
+            onChange={handleChange}
           />
-        ))}
-        <button onClick={addIngredient} type="button">
-          Add Ingredient
-        </button>
-        <label htmlFor="instructions">Instructions</label>
-        <textarea
-          name="instructions"
-          id="instructions"
-          onChange={handleChange}
-        ></textarea>
-        <label htmlFor="imageUrl">Image URL</label>
-        <input
-          type="text"
-          id="imageUrl"
-          name="imageUrl"
-          onChange={handleChange}
-        />
-        <label htmlFor="cookingTime">Cooking Time (minutes)</label>
-        <input
-          type="number"
-          id="cookingTime"
-          name="cookingTime"
-          onChange={handleChange}
-        />
-        <button type="submit">Create Recipe</button>
-      </form>
-    </div>
-  );
+          <label htmlFor="cookingTime">Cooking Time (minutes)</label>
+          <input
+            type="number"
+            id="cookingTime"
+            name="cookingTime"
+            onChange={handleChange}
+          />
+          <button type="submit">Create Recipe</button>
+        </form>
+      </div>
+    );
+  } else {
+    content = <h1>You need to Login</h1>;
+  }
+
+  return content;
 }
