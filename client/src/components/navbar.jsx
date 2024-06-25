@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
