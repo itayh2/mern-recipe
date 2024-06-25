@@ -10,7 +10,7 @@ app.use(cors());
 app.use("/auth", userRouter);
 
 mongoose.connect(
-  "mongodb+srv://itayh2:npoBYPPrEiDKID4m@recipes.jamhxgc.mongodb.net/recipes?retryWrites=true&w=majority"
+  "mongodb+srv://itayh2:itayH123!@recipes.jamhxgc.mongodb.net/recipes?retryWrites=true&w=majority"
 );
 
 app.listen(3001, () => {
