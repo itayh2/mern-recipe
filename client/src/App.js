@@ -5,6 +5,7 @@ import Auth from "./pages/Auth";
 import CreateRecipe from "./pages/CreateRecipe";
 import SavedRecipes from "./pages/SavedRecipes";
 import Navbar from "./components/navbar";
+
 function App() {
   return (
     <div className="App">

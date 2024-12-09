@@ -25,12 +25,12 @@ router.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const user = await UserModel.findOne({ username });
   if (!user) {
-    return res.json({ message: "User Doesn't Exist!" });
+    return res.status(404).json({ message: "User Doesn't Exist!" });
   }
   const isPasswordValid = await bycrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
-    return res.json({ message: "Username or Password Is Incorrect!" });
+    return res.status(400).json({ message: "Username or Password Is Incorrect!" });
   }
   const token = jwt.sign({ id: user._id }, "secret");
 
