@@ -7,6 +7,7 @@ export default function Home() {
   const [savedRecipes, setSavedRecipes] = useState([]);
 
   const userID = useGetUserID();
+
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
@@ -45,19 +46,48 @@ export default function Home() {
     }
   };
 
-  const removeRecipe = async (recipeID) => {
-    try {
-      const response = await axios.delete(
-        `http://localhost:3001/recipes/savedRecipes/${userID}/${recipeID}`
-      );
-      setSavedRecipes(response.data.savedRecipes);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const removeRecipe = async (recipeID) => {
+  //   try {
+  //     const response = await axios.delete(
+  //       `http://localhost:3001/recipes/savedRecipes/${userID}/${recipeID}`
+  //     );
+  //     setSavedRecipes(response.data.savedRecipes);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const isRecipeSaved = (id) => savedRecipes.includes(id);
 
+  //   return (
+  //     <div>
+  //       <h1>Recipes</h1>
+  //       <ul>
+  //         {recipes.map((recipe) => (
+  //           <li key={recipe._id}>
+  //             <div>
+  //               <h2>{recipe.name}</h2>
+  //               <button
+  //                 onClick={() =>
+  //                   isRecipeSaved
+  //                     ? saveRecipe(recipe._id)
+  //                     : removeRecipe(recipe._id)
+  //                 }
+  //               >
+  //                 {isRecipeSaved(recipe._id) ? "Unsave" : "Save"}
+  //               </button>
+  //             </div>
+  //             <div className="instructions">
+  //               <p>{recipe.instructions}</p>
+  //             </div>
+  //             <img src={recipe.imageUrl} alt={recipe.name} />
+  //             <p>Cooking Time: {recipe.cookingTime} minutes</p>
+  //           </li>
+  //         ))}
+  //       </ul>
+  //     </div>
+  //   );
+  // }
   return (
     <div>
       <h1>Recipes</h1>
@@ -67,13 +97,10 @@ export default function Home() {
             <div>
               <h2>{recipe.name}</h2>
               <button
-                onClick={() =>
-                  isRecipeSaved
-                    ? saveRecipe(recipe._id)
-                    : removeRecipe(recipe._id)
-                }
+                onClick={() => saveRecipe(recipe._id)}
+                disabled={isRecipeSaved(recipe._id)}
               >
-                {isRecipeSaved(recipe._id) ? "Unsave" : "Save"}
+                {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
               </button>
             </div>
             <div className="instructions">
