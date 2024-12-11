@@ -22,38 +22,42 @@ export default function SavedRecipes() {
     }
   }, [userID]);
 
-  // const removeSavedRecipe = async (recipeID) => {
-  //   try {
-  //     await axios.put(`http://localhost:3001/recipes/removeSavedRecipe`, {
-  //       recipeID,
-  //       userID,
-  //     });
-  //     setSavedRecipes((prevRecipes) =>
-  //       prevRecipes.filter((recipe) => recipe._id !== recipeID)
-  //     );
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const removeSavedRecipe = async (recipeID) => {
+    try {
+      await axios.delete(
+        `http://localhost:3001/recipes/savedRecipes/${userID}/${recipeID}`
+      );
+      setSavedRecipes((prevRecipes) =>
+        prevRecipes.filter((recipe) => recipe._id !== recipeID)
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
-    <div>
-      <h1>Saved Recipes</h1>
-      <ul>
+    <>
+      <h1 className="recipes-header">Saved Recipes</h1>
+      <div className="recipes-container">
         {savedRecipes.map((recipe) => (
-          <li key={recipe._id}>
-            <div>
-              <h2>{recipe.name}</h2>
-              {/* <button onClick={removeSavedRecipe(recipe._id)}>Unsave</button> */}
-            </div>
-            <div className="instructions">
-              <p>{recipe.instructions}</p>
-            </div>
+          <div className="recipe-card" key={recipe._id}>
             <img src={recipe.imageUrl} alt={recipe.name} />
-            <p>Cooking Time: {recipe.cookingTime} minutes</p>
-          </li>
+            <div className="details-container">
+              <h2>{recipe.name}</h2>
+              <ul>
+                {recipe.ingredients.map((ing) => (
+                  <li key={ing.id}>{ing}</li>
+                ))}
+              </ul>
+              <p className="instructions">{recipe.instructions}</p>
+              <p>Cooking Time: {recipe.cookingTime} minutes</p>
+              <button onClick={() => removeSavedRecipe(recipe._id)}>
+                Remove
+              </button>
+            </div>
+          </div>
         ))}
-      </ul>
-    </div>
+      </div>
+    </>
   );
 }

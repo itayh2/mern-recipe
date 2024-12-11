@@ -59,43 +59,22 @@ export default function Home() {
 
   const isRecipeSaved = (id) => savedRecipes.includes(id);
 
-  //   return (
-  //     <div>
-  //       <h1>Recipes</h1>
-  //       <ul>
-  //         {recipes.map((recipe) => (
-  //           <li key={recipe._id}>
-  //             <div>
-  //               <h2>{recipe.name}</h2>
-  //               <button
-  //                 onClick={() =>
-  //                   isRecipeSaved
-  //                     ? saveRecipe(recipe._id)
-  //                     : removeRecipe(recipe._id)
-  //                 }
-  //               >
-  //                 {isRecipeSaved(recipe._id) ? "Unsave" : "Save"}
-  //               </button>
-  //             </div>
-  //             <div className="instructions">
-  //               <p>{recipe.instructions}</p>
-  //             </div>
-  //             <img src={recipe.imageUrl} alt={recipe.name} />
-  //             <p>Cooking Time: {recipe.cookingTime} minutes</p>
-  //           </li>
-  //         ))}
-  //       </ul>
-  //     </div>
-  //   );
-  // }
   return (
-    <div>
-      <h1>Recipes</h1>
-      <ul>
+    <>
+      <h1 className="recipes-header">Recipes</h1>
+      <div className="recipes-container">
         {recipes.map((recipe) => (
-          <li key={recipe._id}>
-            <div>
+          <div className="recipe-card" key={recipe._id}>
+            <img src={recipe.imageUrl} alt={recipe.name} />
+            <div className="details-container">
               <h2>{recipe.name}</h2>
+              <ul>
+                {recipe.ingredients.map((ing) => (
+                  <li key={ing._id}>{ing}</li>
+                ))}
+              </ul>
+              <p className="instructions">{recipe.instructions}</p>
+              <p>Cooking Time: {recipe.cookingTime} minutes</p>
               <button
                 onClick={() => saveRecipe(recipe._id)}
                 disabled={isRecipeSaved(recipe._id)}
@@ -103,14 +82,9 @@ export default function Home() {
                 {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
               </button>
             </div>
-            <div className="instructions">
-              <p>{recipe.instructions}</p>
-            </div>
-            <img src={recipe.imageUrl} alt={recipe.name} />
-            <p>Cooking Time: {recipe.cookingTime} minutes</p>
-          </li>
+          </div>
         ))}
-      </ul>
-    </div>
+      </div>
+    </>
   );
 }

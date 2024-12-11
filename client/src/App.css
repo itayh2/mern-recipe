@@ -10,6 +10,7 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: rgb(183, 177, 206);
 }
 
 .auth {
@@ -50,7 +51,7 @@ input {
   border-radius: 5px;
 }
 
-.navbar{
+.navbar {
   margin: 0;
   width: 100%;
   height: 80px;
@@ -81,6 +82,20 @@ a {
   margin: 20px;
   width: 400px;
 }
+.create-recipe h2{
+  border-bottom: 2px solid black;
+}
+.create-recipe button{
+  margin-top: 5px;
+  padding: 10px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .create-recipe form {
   display: flex;
   flex-direction: column;
@@ -93,13 +108,73 @@ ul {
 
 li {
   border: 1px solid black;
-  padding: 10px;
+  padding: 5px;
   margin-bottom: 10px;
 }
-
-h2 {
-  margin-top: 0;
+.recipes-header {
+  margin: 0;
+  background-color: rgb(183, 177, 206);
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  border-bottom: 2px solid black;
 }
+.recipes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+  width: 70%;
+  margin: 20px auto;
+  background-color: rgb(193, 196, 216);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.recipe-card {
+  width: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  height: 600px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+.recipe-card img {
+  width: 100%;
+  height: 50%;
+  border-bottom: 1px solid #ccc;
+}
+.details-container {
+  padding: 10px;
+}
+.details-container h2 {
+  margin: 10px 0;
+  font-size: 18px;
+}
+.details-container p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+.details-container button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.details-container button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+/* h2 {
+  margin-top: 0;
+} 
 
 img {
   max-width: 100%;
@@ -114,4 +189,4 @@ img {
 p {
   max-width: 400px;
   font-size: 12px;
-}
+} */
