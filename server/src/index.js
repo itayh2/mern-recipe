@@ -12,10 +12,8 @@ app.use(cors());
 app.use("/auth", userRouter);
 app.use("/recipes", recipesRouter);
 
-mongoose.connect(
-  "mongodb+srv://itayh2:itayH123!@recipes.jamhxgc.mongodb.net/recipes?retryWrites=true&w=majority"
-);
+mongoose.connect(process.env.MONGODB_URI);
 
-app.listen(3001, () => {
+app.listen(process.env.PORT, () => {
   console.log("SERVER RUNNING");
 });
