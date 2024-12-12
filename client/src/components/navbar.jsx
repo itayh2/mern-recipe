@@ -15,11 +15,13 @@ export default function Navbar() {
     <div className="navbar">
       <Link to="/">Home</Link>
       <Link to="/createRecipe">Create Recipe</Link>
-      <Link to="/savedRecipes">Saved Recipes</Link>
       {!cookies.access_token ? (
         <Link to="/auth">Login/Register</Link>
       ) : (
-        <button onClick={logout}>Logout</button>
+        <>
+          <Link to="/savedRecipes">Saved Recipes</Link>
+          <button onClick={logout}>Logout</button>
+        </>
       )}
     </div>
   );

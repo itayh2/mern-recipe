@@ -57,7 +57,7 @@ router.get("/:recipeId", async (req, res) => {
 });
 
 // Save a Recipe
-router.put("/", async (req, res) => {
+router.put("/", verifyToken, async (req, res) => {
   const recipe = await RecipesModel.findById(req.body.recipeID);
   const user = await UserModel.findById(req.body.userID);
   try {

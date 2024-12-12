@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useGetUserID } from "../hooks/useGetUserID";
+import { useCookies } from "react-cookie";
 
 export default function Home() {
   const [recipes, setRecipes] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [cookies, _] = useCookies(["access_token"]);
 
   const userID = useGetUserID();
 
@@ -23,39 +25,35 @@ export default function Home() {
         const response = await axios.get(
           `http://localhost:3001/recipes/savedRecipes/ids/${userID}`
         );
-        setSavedRecipes(response.data.savedRecipes || []);
+        setSavedRecipes(response.data.savedRecipes);
       } catch (err) {
         console.err(err);
       }
     };
+    fetchRecipe();
+
     if (userID) {
-      fetchRecipe();
       fetchSavedRecipe();
     }
-  }, [userID]);
+  }, [userID]); // This array c ontrols when the effect should re-run, if userID changes, the effect will be re-executed
 
   const saveRecipe = async (recipeID) => {
     try {
-      const response = await axios.put("http://localhost:3001/recipes", {
-        recipeID,
-        userID,
-      });
+      const response = await axios.put(
+        "http://localhost:3001/recipes",
+        {
+          recipeID,
+          userID,
+        },
+        {
+          headers: { authorization: cookies.access_token },
+        }
+      );
       setSavedRecipes(response.data.savedRecipes);
     } catch (err) {
       console.log(err);
     }
   };
-
-  // const removeRecipe = async (recipeID) => {
-  //   try {
-  //     const response = await axios.delete(
-  //       `http://localhost:3001/recipes/savedRecipes/${userID}/${recipeID}`
-  //     );
-  //     setSavedRecipes(response.data.savedRecipes);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   const isRecipeSaved = (id) => savedRecipes.includes(id);
 

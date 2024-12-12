@@ -39,24 +39,30 @@ export default function SavedRecipes() {
     <>
       <h1 className="recipes-header">Saved Recipes</h1>
       <div className="recipes-container">
-        {savedRecipes.map((recipe) => (
-          <div className="recipe-card" key={recipe._id}>
-            <img src={recipe.imageUrl} alt={recipe.name} />
-            <div className="details-container">
-              <h2>{recipe.name}</h2>
-              <ul>
-                {recipe.ingredients.map((ing) => (
-                  <li key={ing.id}>{ing}</li>
-                ))}
-              </ul>
-              <p className="instructions">{recipe.instructions}</p>
-              <p>Cooking Time: {recipe.cookingTime} minutes</p>
-              <button onClick={() => removeSavedRecipe(recipe._id)}>
-                Remove
-              </button>
-            </div>
+        {savedRecipes.length === 0 ? (
+          <div className="no-recipes">
+            <p>No Recipes saved yet</p>
           </div>
-        ))}
+        ) : (
+          savedRecipes.map((recipe) => (
+            <div className="recipe-card" key={recipe._id}>
+              <img src={recipe.imageUrl} alt={recipe.name} />
+              <div className="details-container">
+                <h2>{recipe.name}</h2>
+                <ul>
+                  {recipe.ingredients.map((ing) => (
+                    <li key={ing.id}>{ing}</li>
+                  ))}
+                </ul>
+                <p className="instructions">{recipe.instructions}</p>
+                <p>Cooking Time: {recipe.cookingTime} minutes</p>
+                <button onClick={() => removeSavedRecipe(recipe._id)}>
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </>
   );
