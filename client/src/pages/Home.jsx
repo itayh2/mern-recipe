@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 export default function Home() {
   const [recipes, setRecipes] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [cookies, _] = useCookies(["access_token"]);
 
   const userID = useGetUserID();
