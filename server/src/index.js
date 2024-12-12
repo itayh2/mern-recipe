@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import { userRouter } from "./routes/users.js";
 import { recipesRouter } from "./routes/recipes.js";
+import serverless from "serverless-http";
 
 const app = express();
 
@@ -16,6 +17,13 @@ mongoose.connect(
   "mongodb+srv://itayh2:itayH123!@recipes.jamhxgc.mongodb.net/recipes?retryWrites=true&w=majority"
 );
 
-app.listen(3001, () => {
-  console.log("SERVER RUNNING");
+const router = express.Router();
+router.get("/", (req, res) => {
+  res.send("App is running..");
 });
+app.use("/", router);
+export const handler = serverless(app);
+
+// app.listen(3001, () => {
+//   console.log("SERVER RUNNING");
+// });
