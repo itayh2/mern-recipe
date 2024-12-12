@@ -10,7 +10,7 @@ export default function SavedRecipes() {
     const fetchSavedRecipe = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/recipes/savedRecipes/${userID}`
+          `https://itayrecipes.netlify.app/recipes/savedRecipes/${userID}`
         );
         setSavedRecipes(response.data.savedRecipes || []);
       } catch (err) {
@@ -25,7 +25,7 @@ export default function SavedRecipes() {
   const removeSavedRecipe = async (recipeID) => {
     try {
       await axios.delete(
-        `http://localhost:3001/recipes/savedRecipes/${userID}/${recipeID}`
+        `https://itayrecipes.netlify.app/recipes/savedRecipes/${userID}/${recipeID}`
       );
       setSavedRecipes((prevRecipes) =>
         prevRecipes.filter((recipe) => recipe._id !== recipeID)

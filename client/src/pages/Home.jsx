@@ -14,7 +14,7 @@ export default function Home() {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/recipes");
+        const response = await axios.get("https://itayrecipes.netlify.app/recipes");
         setRecipes(response.data);
       } catch (err) {
         console.err(err);
@@ -24,7 +24,7 @@ export default function Home() {
     const fetchSavedRecipe = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/recipes/savedRecipes/ids/${userID}`
+          `https://itayrecipes.netlify.app/recipes/savedRecipes/ids/${userID}`
         );
         setSavedRecipes(response.data.savedRecipes);
       } catch (err) {
@@ -41,7 +41,7 @@ export default function Home() {
   const saveRecipe = async (recipeID) => {
     try {
       const response = await axios.put(
-        "http://localhost:3001/recipes",
+        "https://itayrecipes.netlify.app/recipes",
         {
           recipeID,
           userID,

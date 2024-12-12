@@ -22,7 +22,7 @@ const Login = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/auth/login", {
+      const response = await axios.post("https://itayrecipes.netlify.app/auth/login", {
         username,
         password,
       });
@@ -52,7 +52,7 @@ const Register = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://localhost:3001/auth/register", {
+      await axios.post("https://itayrecipes.netlify.app/auth/register", {
         username,
         password,
       });
