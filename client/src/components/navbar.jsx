@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [cookies, setCookies] = useCookies(["access_token"]);
+  const location = useLocation();
   const navigate = useNavigate();
 
   const logout = () => {
@@ -13,14 +14,14 @@ export default function Navbar() {
   };
   return (
     <div className="navbar">
-      <Link to="/">Home</Link>
-      <Link to="/createRecipe">Create Recipe</Link>
+      <Link to="/" className={location.pathname === "/" ? "active" : ""}>Home</Link>
+      <Link to="/createRecipe" className={location.pathname === "/createRecipe" ? "active" : ""}>Create Recipe</Link>
       {!cookies.access_token ? (
-        <Link to="/auth">Login/Register</Link>
+        <Link to="/auth" className={location.pathname === "/auth" ? "active" : ""}>Login/Register</Link>
       ) : (
         <>
-          <Link to="/savedRecipes">Saved Recipes</Link>
-          <button onClick={logout}>Logout</button>
+          <Link to="/savedRecipes" className={location.pathname === "/savedRecipes" ? "active" : ""}>Saved Recipes</Link>
+          <button className="logOutButton" onClick={logout}>Logout</button>
         </>
       )}
     </div>
