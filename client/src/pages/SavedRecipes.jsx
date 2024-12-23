@@ -14,7 +14,7 @@ export default function SavedRecipes() {
         );
         setSavedRecipes(response.data.savedRecipes || []);
       } catch (err) {
-        console.err(err);
+        console.error(err);
       }
     };
     if (userID) {

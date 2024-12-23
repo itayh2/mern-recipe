@@ -17,7 +17,7 @@ export default function Home() {
         const response = await axios.get("http://localhost:3001/recipes");
         setRecipes(response.data);
       } catch (err) {
-        console.err(err);
+        console.error(err);
       }
     };
 
@@ -28,7 +28,7 @@ export default function Home() {
         );
         setSavedRecipes(response.data.savedRecipes);
       } catch (err) {
-        console.err(err);
+        console.error(err);
       }
     };
     fetchRecipe();

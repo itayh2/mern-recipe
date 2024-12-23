@@ -2,19 +2,26 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+
 export default function Auth() {
+  const [isLogin, setIsLogin] = useState(true);
+
   return (
     <div className="auth">
-      <Login />
-      <Register />
+      <div className="auth-container">
+        {isLogin ? (
+          <Login setIsLogin={setIsLogin} />
+        ) : (
+          <Register setIsLogin={setIsLogin} />
+        )}
+      </div>
     </div>
   );
 }
 
-const Login = () => {
+const Login = ({ setIsLogin }) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
   // eslint-disable-next-line no-unused-vars
   const [_, setCookies] = useCookies(["access_token"]);
   const navigate = useNavigate();
@@ -33,6 +40,7 @@ const Login = () => {
       console.error(err);
     }
   };
+
   return (
     <Form
       username={username}
@@ -41,11 +49,13 @@ const Login = () => {
       setPassword={setPassword}
       label="Login"
       onSubmit={onSubmit}
+      switchForm={() => setIsLogin(false)}
+      switchLabel="Register"
     />
   );
 };
 
-const Register = () => {
+const Register = ({ setIsLogin }) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -57,12 +67,12 @@ const Register = () => {
         password,
       });
       alert("Registration Completed! Now Please Login");
-      //   setUserName("");
-      //   setPassword("");
+      setIsLogin(true);
     } catch (err) {
       console.error(err);
     }
   };
+
   return (
     <Form
       username={username}
@@ -71,6 +81,8 @@ const Register = () => {
       setPassword={setPassword}
       label="Register"
       onSubmit={onSubmit}
+      switchForm={() => setIsLogin(true)}
+      switchLabel="Login"
     />
   );
 };
@@ -82,39 +94,36 @@ const Form = ({
   setPassword,
   label,
   onSubmit,
+  switchForm,
+  switchLabel,
 }) => {
   return (
-    <div className="auth-container">
-      <form onSubmit={onSubmit}>
-        <h2>{label}</h2>
-        <div className="form-group">
-          <label
-            htmlFor={label === "Login" ? "login-username" : "register-username"}
-          >
-            Username:
-          </label>
-          <input
-            type="text"
-            id={label === "Login" ? "login-username" : "register-username"}
-            value={username}
-            onChange={(event) => setUserName(event.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label
-            htmlFor={label === "Login" ? "login-password" : "register-password"}
-          >
-            Password:{" "}
-          </label>
-          <input
-            type="password"
-            id={label === "Login" ? "login-password" : "register-password"}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </div>
+    <form onSubmit={onSubmit}>
+      <h2>{label}</h2>
+      <div className="form-group">
+        <label htmlFor="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          value={username}
+          onChange={(event) => setUserName(event.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+      </div>
+      <div className="form-actions">
         <button type="submit">{label}</button>
-      </form>
-    </div>
+        <button type="button" onClick={switchForm} className="switch-form">
+          {switchLabel}
+        </button>
+      </div>
+    </form>
   );
 };
