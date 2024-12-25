@@ -12,34 +12,46 @@ export default function Navbar() {
     window.localStorage.removeItem("userID");
     navigate("/auth");
   };
-  
+
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between h-16 items-center">
           {/* Left side navigation links */}
           <div className="flex space-x-8">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className={`inline-flex items-center px-3 py-2 text-sm font-medium hover:text-blue-600 transition-colors
-                ${location.pathname === "/" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-500"}`}
+                ${
+                  location.pathname === "/"
+                    ? "text-blue-600 border-b-2 border-blue-600"
+                    : "text-gray-500"
+                }`}
             >
               Home
             </Link>
-            
-            <Link 
+
+            <Link
               to="/createRecipe"
               className={`inline-flex items-center px-3 py-2 text-sm font-medium hover:text-blue-600 transition-colors
-                ${location.pathname === "/createRecipe" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-500"}`}
+                ${
+                  location.pathname === "/createRecipe"
+                    ? "text-blue-600 border-b-2 border-blue-600"
+                    : "text-gray-500"
+                }`}
             >
               Create Recipe
             </Link>
-            
+
             {cookies.access_token && (
-              <Link 
+              <Link
                 to="/savedRecipes"
                 className={`inline-flex items-center px-3 py-2 text-sm font-medium hover:text-blue-600 transition-colors
-                  ${location.pathname === "/savedRecipes" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-500"}`}
+                  ${
+                    location.pathname === "/savedRecipes"
+                      ? "text-blue-600 border-b-2 border-blue-600"
+                      : "text-gray-500"
+                  }`}
               >
                 Saved Recipes
               </Link>
@@ -49,7 +61,7 @@ export default function Navbar() {
           {/* Right side auth buttons */}
           <div className="flex items-center">
             {!cookies.access_token ? (
-              <Link 
+              <Link
                 to="/auth"
                 className={`inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors
                   ${location.pathname === "/auth" ? "bg-blue-700" : ""}`}
@@ -57,7 +69,7 @@ export default function Navbar() {
                 Login/Register
               </Link>
             ) : (
-              <button 
+              <button
                 onClick={logout}
                 className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 transition-colors"
               >
