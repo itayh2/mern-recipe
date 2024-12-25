@@ -1,4 +1,7 @@
-:root{
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* :root{
   --main-color: #89A8B2;
   --second-color: #B3C8CF;
 }
@@ -229,4 +232,7 @@ li {
   cursor: pointer;
   font-size: 0.9rem;
   text-decoration: underline;
-}
+} */
+ .foo{
+  background-color: aliceblue;
+ }

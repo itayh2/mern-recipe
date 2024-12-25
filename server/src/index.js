@@ -8,27 +8,31 @@ import { recipesRouter } from "./routes/recipes.js";
 dotenv.config();
 const app = express();
 
+// Middleware
 app.use(express.json());
 app.use(cors());
 
+// Routes
 app.use("/auth", userRouter);
 app.use("/recipes", recipesRouter);
 
-const mongoURI = process.env.MONGODB_URI;
-if (!mongoURI) {
-  console.error('MongoDB URI is not defined in the environment variables');
-  process.exit(1);
-}
-try {
-  await mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
-  console.log('Connected to MongoDB');
-} catch (error) {
-  console.error('Failed to connect to MongoDB:', error);
-}
+// MongoDB Connection
+const mongoURI = process.env.MONGODB_URI || "mongodb+srv://itayh2:itayH123!@recipes.jamhxgc.mongodb.net/recipes?retryWrites=true&w=majority";
 
-app.listen(process.env.PORT, () => {
-  console.log("SERVER RUNNING");
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log("Connected to MongoDB"))
+.catch((err) => console.error("MongoDB connection error:", err));
+
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: "שגיאה בשרת" });
+});
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

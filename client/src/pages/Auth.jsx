@@ -1,129 +1,33 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import ForgotPassword from "./ForgotPassword";
+import Register from "./Register";
+import Login from "./Login";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
+  const [forgotPassword, setForgotPassword] = useState(false);
 
   return (
-    <div className="auth">
-      <div className="auth-container">
-        {isLogin ? (
-          <Login setIsLogin={setIsLogin} />
-        ) : (
-          <Register setIsLogin={setIsLogin} />
-        )}
+    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full mx-auto space-y-8">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            {forgotPassword ? "שחזור סיסמא" : isLogin ? "התחברות" : "הרשמה"}
+          </h2>
+        </div>
+        <div className="mt-8 bg-white py-8 px-4 shadow-lg rounded-lg sm:px-10">
+          {forgotPassword ? (
+            <ForgotPassword setForgotPassword={setForgotPassword} />
+          ) : isLogin ? (
+            <Login
+              setIsLogin={setIsLogin}
+              setForgotPassword={setForgotPassword}
+            />
+          ) : (
+            <Register setIsLogin={setIsLogin} />
+          )}
+        </div>
       </div>
     </div>
   );
 }
-
-const Login = ({ setIsLogin }) => {
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  // eslint-disable-next-line no-unused-vars
-  const [_, setCookies] = useCookies(["access_token"]);
-  const navigate = useNavigate();
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:3001/auth/login", {
-        username,
-        password,
-      });
-      setCookies("access_token", response.data.token);
-      window.localStorage.setItem("userID", response.data.userID);
-      navigate("/");
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  return (
-    <Form
-      username={username}
-      setUserName={setUserName}
-      password={password}
-      setPassword={setPassword}
-      label="Login"
-      onSubmit={onSubmit}
-      switchForm={() => setIsLogin(false)}
-      switchLabel="Register"
-    />
-  );
-};
-
-const Register = ({ setIsLogin }) => {
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      await axios.post("http://localhost:3001/auth/register", {
-        username,
-        password,
-      });
-      alert("Registration Completed! Now Please Login");
-      setIsLogin(true);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  return (
-    <Form
-      username={username}
-      setUserName={setUserName}
-      password={password}
-      setPassword={setPassword}
-      label="Register"
-      onSubmit={onSubmit}
-      switchForm={() => setIsLogin(true)}
-      switchLabel="Login"
-    />
-  );
-};
-
-const Form = ({
-  username,
-  setUserName,
-  password,
-  setPassword,
-  label,
-  onSubmit,
-  switchForm,
-  switchLabel,
-}) => {
-  return (
-    <form onSubmit={onSubmit}>
-      <h2>{label}</h2>
-      <div className="form-group">
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={(event) => setUserName(event.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </div>
-      <div className="form-actions">
-        <button type="submit">{label}</button>
-        <button type="button" onClick={switchForm} className="switch-form">
-          {switchLabel}
-        </button>
-      </div>
-    </form>
-  );
-};

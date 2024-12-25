@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useGetUserID } from "../hooks/useGetUserID";
 import { useCookies } from "react-cookie";
 
@@ -8,7 +8,6 @@ export default function Home() {
   const [savedRecipes, setSavedRecipes] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [cookies, _] = useCookies(["access_token"]);
-
   const userID = useGetUserID();
 
   useEffect(() => {
@@ -31,12 +30,12 @@ export default function Home() {
         console.error(err);
       }
     };
+    
     fetchRecipe();
-
     if (userID) {
       fetchSavedRecipe();
     }
-  }, [userID]); // This array c ontrols when the effect should re-run, if userID changes, the effect will be re-executed
+  }, [userID]);
 
   const saveRecipe = async (recipeID) => {
     try {
@@ -59,31 +58,66 @@ export default function Home() {
   const isRecipeSaved = (id) => savedRecipes.includes(id);
 
   return (
-    <>
-      <h1 className="recipes-header">Recipes</h1>
-      <div className="recipes-container">
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+        Recipes
+      </h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recipes.map((recipe) => (
-          <div className="recipe-card" key={recipe._id}>
-            <img src={recipe.imageUrl} alt={recipe.name} />
-            <div className="details-container">
-              <h2>{recipe.name}</h2>
-              <ul>
-                {recipe.ingredients.map((ing) => (
-                  <li key={ing._id}>{ing}</li>
-                ))}
-              </ul>
-              <p className="instructions">{recipe.instructions}</p>
-              <p>Cooking Time: {recipe.cookingTime} minutes</p>
-              <button
-                onClick={() => saveRecipe(recipe._id)}
-                disabled={isRecipeSaved(recipe._id)}
-              >
-                {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
-              </button>
+          <div key={recipe._id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div className="relative h-48">
+              <img 
+                src={recipe.imageUrl} 
+                alt={recipe.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            
+            <div className="p-6">
+              <h2 className="text-xl font-semibold mb-4 text-gray-800">
+                {recipe.name}
+              </h2>
+              
+              <div className="mb-4">
+                <h3 className="text-md font-medium mb-2 text-gray-700">Ingredients:</h3>
+                <ul className="list-disc list-inside space-y-1 text-gray-600">
+                  {recipe.ingredients.map((ing, index) => (
+                    <li key={index} className="text-sm">
+                      {ing}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div className="mb-4">
+                <h3 className="text-md font-medium mb-2 text-gray-700">Instructions:</h3>
+                <p className="text-sm text-gray-600 line-clamp-3">
+                  {recipe.instructions}
+                </p>
+              </div>
+              
+              <div className="flex items-center justify-between mt-4">
+                <span className="text-sm text-gray-500">
+                  Cooking Time: {recipe.cookingTime} minutes
+                </span>
+                
+                <button
+                  onClick={() => saveRecipe(recipe._id)}
+                  disabled={isRecipeSaved(recipe._id)}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200
+                    ${isRecipeSaved(recipe._id)
+                      ? 'bg-green-100 text-green-800 cursor-not-allowed'
+                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                    }`}
+                >
+                  {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
+                </button>
+              </div>
             </div>
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
