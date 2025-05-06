@@ -38,7 +38,7 @@ export default function SavedRecipes() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-        Saved Recipes
+        מתכונים שמורים
       </h1>
 
       {savedRecipes.length === 0 ? (
@@ -55,8 +55,10 @@ export default function SavedRecipes() {
             >
               <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
-            <p className="text-xl text-gray-600 font-medium">No Recipes saved yet</p>
-            <p className="text-gray-500">Your saved recipes will appear here</p>
+            <p className="text-xl text-gray-600 font-medium">
+              עדיין לא נשמרו מתכונים
+            </p>
+            <p className="text-gray-500">המתכונים השמורים שלך יופיעו כאן</p>
           </div>
         </div>
       ) : (
@@ -99,7 +101,7 @@ export default function SavedRecipes() {
 
                 <div className="mb-4">
                   <h3 className="text-md font-medium mb-2 text-gray-700">
-                    Ingredients:
+                    מרכיבים:
                   </h3>
                   <ul className="list-disc list-inside space-y-1 text-gray-600">
                     {recipe.ingredients.map((ing, index) => (
@@ -112,16 +114,16 @@ export default function SavedRecipes() {
 
                 <div className="mb-4">
                   <h3 className="text-md font-medium mb-2 text-gray-700">
-                    Instructions:
+                    הוראות:
                   </h3>
                   <p className="text-sm text-gray-600 line-clamp-3">
                     {recipe.instructions}
                   </p>
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
+                <div className="flex items-center mt-4">
                   <span className="text-sm text-gray-500">
-                    Cooking Time: {recipe.cookingTime} minutes
+                    זמן בישול: {recipe.cookingTime} דקות
                   </span>
                 </div>
               </div>

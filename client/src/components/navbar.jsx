@@ -21,14 +21,14 @@ export default function Navbar() {
           <div className="flex space-x-8">
             <Link
               to="/"
-              className={`inline-flex items-center px-3 py-2 text-sm font-medium hover:text-blue-600 transition-colors
+              className={`inline-flex ml-3 items-center px-3 py-2 text-sm font-medium hover:text-blue-600 transition-colors
                 ${
                   location.pathname === "/"
                     ? "text-blue-600 border-b-2 border-blue-600"
                     : "text-gray-500"
                 }`}
             >
-              Home
+              בית
             </Link>
 
             <Link
@@ -40,7 +40,7 @@ export default function Navbar() {
                     : "text-gray-500"
                 }`}
             >
-              Create Recipe
+              הוספת מתכון
             </Link>
 
             {cookies.access_token && (
@@ -53,12 +53,11 @@ export default function Navbar() {
                       : "text-gray-500"
                   }`}
               >
-                Saved Recipes
+                מתכונים שמורים
               </Link>
             )}
           </div>
 
-          {/* Right side auth buttons */}
           <div className="flex items-center">
             {!cookies.access_token ? (
               <Link
@@ -66,14 +65,14 @@ export default function Navbar() {
                 className={`inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors
                   ${location.pathname === "/auth" ? "bg-blue-700" : ""}`}
               >
-                Login/Register
+                כניסה/הרשמה
               </Link>
             ) : (
               <button
                 onClick={logout}
                 className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 transition-colors"
               >
-                Logout
+                התנתקות
               </button>
             )}
           </div>

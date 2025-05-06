@@ -60,7 +60,7 @@ export default function Home() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-        Recipes
+        מתכונים
       </h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -80,7 +80,7 @@ export default function Home() {
               </h2>
               
               <div className="mb-4">
-                <h3 className="text-md font-medium mb-2 text-gray-700">Ingredients:</h3>
+                <h3 className="text-md font-medium mb-2 text-gray-700">מרכיבים:</h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-600">
                   {recipe.ingredients.map((ing, index) => (
                     <li key={index} className="text-sm">
@@ -91,15 +91,15 @@ export default function Home() {
               </div>
               
               <div className="mb-4">
-                <h3 className="text-md font-medium mb-2 text-gray-700">Instructions:</h3>
-                <p className="text-sm text-gray-600 line-clamp-3">
+                <h3 className="text-md font-medium mb-2 text-gray-700">הוראות:</h3>
+                <p className="text-sm text-gray-600 line-clamp-5">
                   {recipe.instructions}
                 </p>
               </div>
               
               <div className="flex items-center justify-between mt-4">
                 <span className="text-sm text-gray-500">
-                  Cooking Time: {recipe.cookingTime} minutes
+                  זמן בישול: {recipe.cookingTime} דקות
                 </span>
                 
                 <button

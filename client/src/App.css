@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body{
+  direction: rtl;
+}
 /* :root{
   --main-color: #89A8B2;
   --second-color: #B3C8CF;

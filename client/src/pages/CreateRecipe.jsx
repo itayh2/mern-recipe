@@ -65,7 +65,7 @@ export const CreateRecipe = () => {
     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6 md:p-8">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
-          Create New Recipe
+          הוספת מתכון חדש
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -75,7 +75,7 @@ export const CreateRecipe = () => {
               htmlFor="name"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
-              Recipe Name
+              שם המתכון
             </label>
             <input
               type="text"
@@ -94,7 +94,7 @@ export const CreateRecipe = () => {
               htmlFor="description"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
-              Description
+              תיאור
             </label>
             <textarea
               id="description"
@@ -109,7 +109,7 @@ export const CreateRecipe = () => {
           {/* Ingredients */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Ingredients
+              מרכיבים
             </label>
             <div className="space-y-2">
               {recipe.ingredients.map((ingredient, index) => (
@@ -119,7 +119,7 @@ export const CreateRecipe = () => {
                   value={ingredient}
                   onChange={(event) => handleIngredientChange(event, index)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder={`Ingredient ${index + 1}`}
+                  placeholder={`מרכיב ${index + 1}`}
                 />
               ))}
             </div>
@@ -128,7 +128,7 @@ export const CreateRecipe = () => {
               onClick={handleAddIngredient}
               className="mt-2 inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              + Add Ingredient
+              הוסף מרכיב +
             </button>
           </div>
 
@@ -138,7 +138,7 @@ export const CreateRecipe = () => {
               htmlFor="instructions"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
-              Instructions
+              הוראות
             </label>
             <textarea
               id="instructions"
@@ -156,7 +156,7 @@ export const CreateRecipe = () => {
               htmlFor="imageUrl"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
-              Image URL
+              כתובת אתר של תמונה
             </label>
             <input
               type="text"
@@ -174,7 +174,7 @@ export const CreateRecipe = () => {
               htmlFor="cookingTime"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
-              Cooking Time (minutes)
+              זמן בישול (דקות)
             </label>
             <input
               type="number"
@@ -193,7 +193,7 @@ export const CreateRecipe = () => {
               type="submit"
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
             >
-              Create Recipe
+              יצירת מתכון
             </button>
             {error && (
               <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">
